@@ -37,7 +37,7 @@ p53bp1 <- ggplot(Foci) +
   theme(strip.text = element_text(size = 11), axis.text.x = element_text(size = 10))
 
 #Plot for black background
-
+#Plot 1
 p53bp1_b <- ggplot(Foci) +
   geom_bar(aes(x = genotype, y = percent_53BP1, fill = foci),
            position = "stack",
@@ -52,6 +52,7 @@ p53bp1_b <- ggplot(Foci) +
   theme(axis.title.y = element_text(color="#F0F0F0", size = 13), axis.text.y = element_text(color="#F0F0F0"))+
   theme(legend.text = element_text(color = "#F0F0F0"), legend.title = element_text(color = "#F0F0F0"))
 
+#Plot 2
 gH2AX_b <- ggplot(Foci) +
   geom_bar(aes(x = genotype, y = percent_γH2AX, fill = foci),
            position = "stack",

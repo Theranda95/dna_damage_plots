@@ -36,25 +36,27 @@ comparisons <- list( c("WT A", "WT B"), c("WT A", "CFL2 KO1"), c("WT A", "CFL2 K
                      c("WT B", "CFL2 KO2"), c("CFL2 KO1", "CFL2 KO2")) 
 
 palette <- c("wt25" = "#7FB3D5", "ko1" = "#0059b3", "wt26" = "#7FB3D5", "ko2" = "#0059b3")
-# Plot 
-P53BP1_nuclei <- ggplot(Foci_nuclei,
-                        aes(x = genotype, y = X53BP1)) +
+
+# Plot 53BP1 and gH2AX for black background 
+gH2AX_nuclei <- ggplot(Foci_nuclei,
+                        aes(x = genotype, y = γH2AX)) +
   #indicate what plot you want and define characteristics 
-  geom_beeswarm(size = 1.5,
-                cex = 0.7,
+  geom_beeswarm(size = 1.2,
+                cex = 0.9,
                 alpha =0.6,
                 dodge.width=0.9,
                 aes(color = genotype)) +
     #Add title 
     labs(x=NULL, 
-         y= "53BP1 Foci number per nuclei") +
+         y= "γH2AX Foci number per nuclei") +
     #theme that simplifies the grid 
-    theme_minimal() +
+    theme_bw() +
     #changing the size of x axis value labels, color and theme 
-    theme(axis.text.x=element_text(size=13),
+    theme(axis.text.x = element_text(size=13),
           axis.title.y = element_text(size = 13, vjust = 2),
           axis.text.y = element_text(size = 12),
           legend.position = "none") +
+  scale_color_manual(values = c("#7FB3D5","#7FB3D5","#0059b3","#0059b3"))+
   #add the stats to the plot
     #The options mean_sd and mean_sdl represent mean ± standard deviation 
     #or the mean ± a multiple of the standard deviation respectively.
@@ -62,12 +64,11 @@ P53BP1_nuclei <- ggplot(Foci_nuclei,
                      step.increase = 0.1) +
   stat_summary(fun.y = mean,
                geom = "point",
-               size = 3,
-               color="black") +
+               size = 3) +
   stat_summary(fun.data = mean_sd,
                geom = "errorbar",
-               width = 0.25,
-               color="black") + 
- scale_color_manual(values = c("#7FB3D5", "#0059b3"))
+               width = 0.25) 
 
-?theme
+ggsave(filename = "53bp1_d0_nuclei.png", plot = P53BP1_nuclei, device = "png", bg = "transparent", width = 4.51, height = 3.98)
+ggsave(filename = "gH2AX_d0_nuclei.png", plot = gH2AX_nuclei, device = "png", bg = "transparent", width = 4.51, height = 3.98)
+
