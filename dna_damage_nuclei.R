@@ -56,7 +56,7 @@ gH2AX_nuclei <- ggplot(Foci_nuclei,
           axis.title.y = element_text(size = 13, vjust = 2),
           axis.text.y = element_text(size = 12),
           legend.position = "none") +
-  scale_color_manual(values = c("#7FB3D5","#7FB3D5","#0059b3","#0059b3"))+
+  scale_color_manual(values = c("#7FB3D5","#7FB3D5","#0059b3","#0059b3")) +
   #add the stats to the plot
     #The options mean_sd and mean_sdl represent mean ± standard deviation 
     #or the mean ± a multiple of the standard deviation respectively.

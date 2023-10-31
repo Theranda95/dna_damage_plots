@@ -69,3 +69,49 @@ gH2AX_b <- ggplot(Foci) +
 
 ggsave(filename = "53bp1.png", plot = p53bp1_b, device = "png", bg = "transparent", width = 4.95, height = 3.32)
 ggsave(filename = "gH2AX.png", plot = gH2AX_b, device = "png", bg = "transparent", width = 4.95, height = 3.32)
+
+##------------Plotting only the WTs--------------------------
+#subset for the WTs only and make a new data table
+#this is after importing the "means_nuc_all_pooled_reps.csv"
+subset_df <- Foci[Foci$genotype %in% c("wt25", "wt26"), ]
+
+desired_order_1 <- c("0", "1-5", "6-9", ">10")
+genotype_order_1 <- c("wt25", "wt26")
+custom_labels_1 <- c("Line A", "Line B")
+
+subset_df$foci <- factor(subset_df$foci, levels = desired_order_1)
+subset_df$genotype <- factor(subset_df$genotype, levels = genotype_order_1, 
+                             labels = custom_labels_1)
+
+#Plot 1A
+p53bp1_wt <- ggplot(subset_df) +
+  geom_bar(aes(x = genotype, y = percent_53BP1, fill = foci),
+           position = "stack",
+           stat = "identity", width=0.8) +
+  facet_grid(~ day, labeller=labeller(day=c("0" = "Day 0", "4" = "Day 4","7" = "Day 7"))) +
+  scale_fill_manual(values = blue_palette) +
+  labs(x = NULL, y = "% 53BP1 Foci per nuclei", fill = "# Foci") +
+  theme_minimal() +
+  theme(panel.grid = element_line(color = "#555555")) + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, color="#F0F0F0")) +
+  theme(strip.text = element_text(size = 12, color="#F0F0F0"), axis.text.x = element_text(size = 10))+
+  theme(axis.title.y = element_text(color="#F0F0F0", size = 13), axis.text.y = element_text(color="#F0F0F0"))+
+  theme(legend.text = element_text(color = "#F0F0F0"), legend.title = element_text(color = "#F0F0F0"))
+
+#Plot 2A
+gH2AX_wt <- ggplot(subset_df) +
+  geom_bar(aes(x = genotype, y = percent_γH2AX, fill = foci),
+           position = "stack",
+           stat = "identity", width=0.8) +
+  facet_grid(~ day, labeller=labeller(day=c("0" = "Day 0", "4" = "Day 4","7" = "Day 7"))) +
+  scale_fill_manual(values = blue_palette) +
+  labs(x = NULL, y = "% γH2AX Foci per nuclei", fill = "# Foci") +
+  theme_minimal() +
+  theme(panel.grid = element_line(color = "#555555")) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, color="#F0F0F0")) +
+  theme(strip.text = element_text(size = 11, color="#F0F0F0"), axis.text.x = element_text(size = 10))+
+  theme(axis.title.y = element_text(color="#F0F0F0", size = 13), axis.text.y = element_text(color="#F0F0F0"))+
+  theme(legend.text = element_text(color = "#F0F0F0"), legend.title = element_text(color = "#F0F0F0"))
+
+ggsave(filename = "53bp1_wt.png", plot = p53bp1_wt, device = "png", bg = "transparent", width = 4.25, height = 3.28)
+ggsave(filename = "gH2AX_wt.png", plot = gH2AX_wt, device = "png", bg = "transparent", width = 4.25, height = 3.28)
